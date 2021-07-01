@@ -1,10 +1,11 @@
 const db = {
     'user':[
-        { id:1, name:'Jared' },
-        { id:2, name:'Rodolfo' },
-        { id:3, name:'Enrique' },
-        { id:4, name:'Prisco' },
+        { id:'1', name:'Jared' },
+        { id:'2', name:'Rodolfo' },
+        { id:'3', name:'Enrique' },
+        { id:'4', name:'Prisco' },
     ],
+
     'post':[
         {'id':1, 'id_user':1,'post':"Este es mi primer post"},
         {'id':2, 'id_user':2,'post':"Este es mi primer post"},
@@ -15,24 +16,23 @@ const db = {
 
 };
 
-function list(tabla){
+async function list(tabla){
     return db[tabla];
 }
-function get(tabla, id){
-    let collection = list(tabla);
-    console.log(id);
-    return collection.filter(item=>item.id=== id);
+async function get(tabla, id){
+    let collection = await list(tabla); 
+    return collection.filter(item=>item.id=== id) || null;
 }
-function upsert(tabla, data){
+async function upsert(tabla, data){
     db[tabla].push(data);
 }
-function remove(tabla, id){
-    let collection = list(tabla);
+async function remove(tabla, id){
+    // let collection = list(tabla);
 
-    return collection.slice(id);
+    // return collection.slice(id);
 }
 
-function getLastId(table){
+async function getLastId(table){
     let data = list(table);
     const last_item = data[data.length - 1];
     return  last_item.id;

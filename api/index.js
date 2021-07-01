@@ -1,14 +1,18 @@
 // servidor
 const express = require('express');
-// crear archivo de configuracion en raiz
-const config = require("../config.js");
+const bodyParse = require("body-parser")
+const app = express();
+
+
+
+const config = require("../config"); // crear archivo de configuracion en raiz
 
 const user = require("./components/user/network");
 // instalar expres... npm i express en la terminal 
-const app = express();
 
+app.use(bodyParse.json()); // instalar con npm i body-parser
 //definir rutas
-app.use("/api/user",user); // todo lo que venga de api/user, envia a user 
+app.use("/api/user" , user ); // todo lo que venga de api/user, envia a user 
 
 //puerto de escucha y callback para verificar el estado del puerto
 app.listen(config.api.port,()=>{
@@ -16,4 +20,4 @@ app.listen(config.api.port,()=>{
 });
 
 // para comprobar el estado del servidor ejecuta
-// nodemo api/index.js en la terminal
+// nodemon api/index.js en la terminal
